@@ -8,9 +8,10 @@ from chromadb.utils import embedding_functions
 import chromadb
 from openai import OpenAI
 import uuid
+
 load_dotenv()
 
-openai_key = os.getenv("OPENAI_API_KEY")
+openai_key = ""
 client = OpenAI(api_key=openai_key)
 
 ## create embedding function
@@ -57,7 +58,7 @@ def split_documents(documents, chunk_size=1000, chunk_overlap=200):
 def get_openai_embedding(text):
     response = client.embeddings.create(input=text, model="text-embedding-3-small")
     embedding = response.data[0].embedding
-    print("Generating embeddings...")
+    print("...Generating embeddings...")
     return embedding
 
 def query_documents(question, n_results=2):
@@ -110,7 +111,7 @@ def main():
         collection.upsert(
             ids=[str(doc.id)], documents=[doc.page_content], embeddings=get_openai_embedding(doc.page_content) 
         )
-    question = "Quais são as experiencias de Ricardo Barros?"
+    question = ""
     relevant_chunks = query_documents(question)
     answer = generate_response(question, relevant_chunks)
     print(answer)
