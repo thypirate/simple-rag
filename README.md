@@ -1,0 +1,1 @@
+This repo contains a simple rag or retrieval augmented generation implementation using python, langchain and openai
